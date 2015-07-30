@@ -25,12 +25,23 @@ class OrdersController < ApplicationController
   end
   
   def index
-    if admin?
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
-    @orders = @user.orders.paginate(page: params[:page])
+    respond_to do |format|
+      format.html do
+        if admin?
+          @user = User.find(params[:user_id])
+        else
+          @user = current_user
+        end
+        @orders = @user.orders.paginate(page: params[:page])
+      end
+      format.json do
+        if user = authenticate_with_http_basic { |name, password| User.find_by(name: name).authenticate(password) }
+          render json: user.orders
+        else
+          request_http_basic_authentication
+        end
+      end
+    end    
   end
     
   def create
