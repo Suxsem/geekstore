@@ -32,8 +32,8 @@ group :doc do
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "twitter-bootstrap-rails"
 gem 'bcrypt'
+gem 'twitter-bootstrap-rails'
 gem 'bootstrap_form'
 gem 'rails-i18n'
 gem 'faker'
