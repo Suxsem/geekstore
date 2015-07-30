@@ -1,0 +1,40 @@
+<% provide(:title, @product.name) %>
+<div class="row">
+    <div class="col-sm-4 col-xs-12">
+        <%= image_tag @product.image.url %>        
+    </div>
+    <div class="col-sm-8 col-xs-12">
+        <h4><span class="glyphicon glyphicon-inbox" style="margin-right: 10px" aria-hidden="true"></span><%= @product.category.name %></h4>
+    </div>    
+    <div class="col-sm-8 col-xs-6">
+        <h2><%= @product.price %><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></h2>
+    </div>
+    <div class="col-sm-8 col-xs-6">
+        <h2><span class="glyphicon glyphicon-gift" style="margin-right: 10px" aria-hidden="true"></span><%= "#{@product.discount}%" %></h2>
+    </div>
+</div>
+<h2><span class="glyphicon glyphicon-pencil" style="margin-right: 10px; margin-top: 30px" aria-hidden="true"></span>Descrizione</h2>
+<h3><%= @product.desc %></h3>
+<h2><span class="glyphicon glyphicon-road" style="margin-right: 10px; margin-top: 30px" aria-hidden="true"></span>Disponibile presso</h2>
+<div style="max-height: 200px; overflow: auto">
+    <table class="table table-striped">
+          <tbody>
+          <% @product.stores.each do |store| %>
+            <tr>
+              <td><%= link_to store.place, store %></td>
+            </tr>
+          <% end %>
+          </tbody>
+    </table>
+</div>
+<h2><span class="glyphicon glyphicon-shopping-cart" style="margin-right: 10px; margin-top: 30px" aria-hidden="true"></span>Acquista</h2>
+
+<%= bootstrap_form_for(@order, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= f.hidden_field :product_id %>
+  <% unless @product.upgrades.empty? %>
+  <%= f.collection_check_boxes :upgrade_ids, @product.upgrades, :id, :name_with_price, { label: "Potenziamenti disponibili", icon: "plus-sign" } %>
+  <% end %>
+  <%= f.form_group do %>
+    <%= f.submit "AGGIUNGI AL CARRELLO", class: "btn btn-primary btn-block", disabled: admin? ? true : false %>
+  <% end %>
+<% end %>

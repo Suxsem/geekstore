@@ -1,0 +1,13 @@
+it:
+  will_paginate:
+    previous_label: "&#8592; Precedenti"
+    next_label: "Successivi &#8594;"
+    page_gap: "&hellip;"
+    
+  errors:
+    messages:
+      carrierwave_processing_error: "impossibile ridimensionare l'immagine"
+      carrierwave_integrity_error: "immagine non valida"
+      carrierwave_download_error: "impossibile scaricare l'immagine"
+      extension_white_list_error: "formato non consentito"
+      extension_black_list_error: "formato non consentito"

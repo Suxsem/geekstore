@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <title><%= yield(:title) + " | GeekStore" %></title>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+
+    <header class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "GeekStore", root_path, class: "navbar-brand" %>
+        </div>
+        <nav class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            
+            <% if admin? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Catalogo<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Visualizza catalogo", products_path %></li>
+                  <li><%= link_to "Aggiungi prodotto", new_product_path %></li>
+                </ul>
+              </li>            
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  Categorie<b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Visualizza categorie", categories_path %></li>
+                  <li><%= link_to "Aggiungi categoria", new_category_path %></li>
+                </ul>
+              </li>
+              <li><%= link_to "Evasioni",  manage_path  %></li>
+              <li><%= link_to "Clienti",  users_path  %></li>
+            <% else %>
+              <li><%= link_to "Catalogo", products_path  %></li>
+              <li><%= link_to "Punti vendita",  stores_path  %></li>
+              <li><%= link_to "Aiuto",  help_path  %></li>
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if logged_in? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <%= current_user.name %><% if admin? %> [admin]<% end%><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <% unless admin? %>
+                    <li><%= link_to "Carrello", cart_path %></li>
+                    <li><%= link_to "Ordini", orders_path %></li>
+                  <% end %>
+                  <li><%= link_to "Profilo", current_user %></li>
+                  <li><%= link_to "Modifica utente", edit_user_path(current_user) %></li>
+                  <li><%= link_to "Rimuovi utente", current_user, method: "delete", data: { confirm: "L'azione non è reversibile. Continuare?" } %></li>
+                  <li class="divider"></li>
+                  <li>
+                    <%= link_to "Logout", logout_path, method: "delete", data: { confirm: "Sei sicuro?" } %>
+                  </li>
+                </ul>
+              </li>
+            <% else %>
+              <li><%= link_to "Login", login_path %></li>
+              <li><%= link_to "Registrati", signup_path %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-header">
+            <h1><%= yield(:title) %></h1>
+          </div>
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; Stefano Semeraro - Università del Salento - 2015</p>
+      </div>
+    </footer>
+
+    <%= debug(params) if Rails.env.development? && false %>
+
+  </body>
+</html>

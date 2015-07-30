@@ -1,0 +1,9 @@
+<% provide(:title, 'Aggiungi potenziamento') %>
+<%= bootstrap_form_for(@upgrade, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= f.collection_select :product_id, [@upgrade.product], :id, :name, { label: "Prodotto", icon: "tags" }, { } %>    
+  <%= f.text_field :name, label: "Nome", icon: "plus-sign" %>
+  <%= f.text_field :price, label: "Sovrapprezzo", prepend: "€", icon: "euro" %>
+  <%= f.form_group do %>
+    <%= f.submit "Aggiungi potenziamento", class: "btn btn-primary btn-block" %>
+  <% end %>
+<% end %>

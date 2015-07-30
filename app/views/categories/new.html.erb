@@ -1,0 +1,7 @@
+<% provide(:title, 'Aggiungi categoria') %>
+<%= bootstrap_form_for(@category, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= f.text_field :name, label: "Nome", icon: "inbox" %>
+  <%= f.form_group do %>
+    <%= f.submit "Aggiungi categoria", class: "btn btn-primary btn-block" %>
+  <% end %>
+<% end %>

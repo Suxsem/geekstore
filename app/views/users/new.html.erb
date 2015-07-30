@@ -1,0 +1,9 @@
+<% provide(:title, 'Registrati') %>
+<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= f.text_field :name, label: "Nome" %>
+  <%= f.password_field :password, label: "Password" %>
+  <%= f.password_field :password_confirmation, label: "Conferma password" %>
+  <%= f.form_group do %>
+    <%= f.submit "Crea il mio account", class: "btn btn-primary btn-block" %>
+  <% end %>
+<% end %>

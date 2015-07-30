@@ -1,0 +1,19 @@
+<% provide(:title, 'Aggiungi prodotto') %>
+<%= bootstrap_form_for(@product, html: { multipart: true }, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-6") do |f| %>
+  <%= f.collection_select :category_id, Category.all, :id, :name, { label: "Categoria", icon: "inbox" }, { } %>    
+  <%= f.text_field :name, label: "Nome", icon: "tags" %>
+  <%= f.text_field :desc, label: "Descrizione", icon: "pencil" %>
+  <%= f.text_field :price, label: "Prezzo", prepend: "€", icon: "euro" %>
+  <%= f.text_field :discount, label: "Sconto", prepend: "%", icon: "gift" %>
+  <%= f.collection_select :store_ids, Store.all, :id, :place, { label: "Disponibile presso", icon: "road" }, { multiple: true } %>
+  <%= f.file_field :image, label: "Foto", icon: "picture", accept: 'image/jpeg,image/gif,image/png' %>
+  <%= f.hidden_field :image_cache %>
+  <% unless @product.image.file.nil? %>
+  <%= f.form_group do %>
+    <%= image_tag(@product.image_url) %>
+  <% end %>
+  <% end %>
+  <%= f.form_group do %>
+    <%= f.submit "Aggiungi prodotto", class: "btn btn-primary btn-block" %>
+  <% end %>
+<% end %>

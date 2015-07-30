@@ -1,0 +1,43 @@
+<% provide(:title, "Carrello") %>
+
+<table class="table">
+      <thead>
+        <tr>
+          <th><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-tags" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-gift" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <% @orders.each do |order| %>
+        <tr class="active">
+          <th scope="row"><%= order.id %></th>
+          <td><%= link_to order.product.name, order.product %></td>
+          <td><%= "#{order.product.price}€" %></td>
+          <td><%= "#{order.product.discount}%" %></td>
+          <td><%= link_to '', order, method: :delete, class: "glyphicon glyphicon-trash", data: { confirm: "Sei sicuro?" } %></td>
+        </tr>
+        <% order.upgrades.each do |upgrade| %>
+            <tr>
+              <th scope="row"></th>
+              <td><%= upgrade.name %></td>
+              <td><%= "#{upgrade.price}€" %></td>
+              <td></td>
+              <td></td>
+            </tr>
+        <% end %>
+      <% end %>
+      <tr class="info">
+        <th scope="row"></th>
+        <td></td>
+        <td><strong><%= "#{@total}€" %></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+</table>
+
+<%= button_to "CONFERMA ACQUISTO", buy_path, class: "btn btn-primary btn-block", style: "margin-top: 20px", method: :post, disabled: @orders.empty? ? true : false %>

@@ -1,0 +1,31 @@
+<% provide(:title, 'Clienti') %>
+<%= will_paginate %>
+
+<table class="table table-striped">
+      <thead>
+        <tr>
+          <th><span class="glyphicon glyphicon-barcode" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-user" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-list" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></th>
+          <th><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></th>          
+        </tr>
+      </thead>
+      <tbody>
+
+      <% @users.each do |user| %>
+        <tr>
+          <th scope="row"><%= user.id %></th>
+          <td><%= link_to user.name, user %></td>
+          <td><%= user.admin? ? "Si" : "No" %></td>
+          <td><%= link_to '', orders_path(user_id: user.id), class: "glyphicon glyphicon-list" %></td>
+          <td><%= link_to '', edit_user_path(user), class: "glyphicon glyphicon-edit" %></td>
+          <td><%= link_to '', user, method: :delete, class: "glyphicon glyphicon-trash", data: { confirm: "Sei sicuro?" } %></td>
+        </tr>
+      <% end %>
+      
+      </tbody>
+</table>
+
+<%= will_paginate %>
