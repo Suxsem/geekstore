@@ -32,15 +32,16 @@ group :doc do
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'bcrypt'
-gem 'twitter-bootstrap-rails'
-gem 'bootstrap_form'
-gem 'rails-i18n'
-gem 'faker'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
-gem 'carrierwave'
-gem 'mini_magick'
+gem 'twitter-bootstrap-rails', '3.2.0'
+gem 'bootstrap_form',          '2.3.0'
+gem 'rails-i18n',              '4.0.4'
+gem 'bcrypt',                  '3.1.7'
+gem 'faker',                   '1.4.3'
+gem 'will_paginate',           '3.0.7'
+gem 'bootstrap-will_paginate', '0.0.10'
+gem 'carrierwave',             '0.10.0'
+gem 'cloudinary',              '1.1.0'
+gem 'mini_magick',             '4.2.7'
 
 group :development, :test do
   

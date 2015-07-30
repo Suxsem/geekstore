@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: suxsem
+  api_key: '394293251793654'
+  api_secret: R53ZUFKiFituACsrlhBZrqLGi28
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: suxsem
+  api_key: '394293251793654'
+  api_secret: R53ZUFKiFituACsrlhBZrqLGi28
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: suxsem
+  api_key: '394293251793654'
+  api_secret: R53ZUFKiFituACsrlhBZrqLGi28
+  enhance_image_tag: true
+  static_image_support: false
