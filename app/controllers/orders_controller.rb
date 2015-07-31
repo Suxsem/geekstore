@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   before_action :logged_in_admin, only: [:update, :manage]
     
   def cart
-      @orders = current_user.orders.where(status: "in attesa di pagamento")
+      @orders = current_user.orders.where(status: Order.possible_status[:wait_payment])
       @total = 0
       @orders.each do |order|
           @total += order.product.final_price
@@ -15,9 +15,9 @@ class OrdersController < ApplicationController
   end
   
   def buy
-      orders = current_user.orders.where(status: "in attesa di pagamento")
+      orders = current_user.orders.where(status: Order.possible_status[:wait_payment])
       orders.each do |order|
-          order.status = "in attesa di conferma"
+          order.status = Order.possible_status[:wait_confirm]
           order.save
       end
       flash[:success] = "Acquisto completato"
@@ -55,12 +55,19 @@ class OrdersController < ApplicationController
     end
   end
   
-  def update
-    #TODO    
+  def manage
+    @orders = Order.where.not(status: Order.possible_status[:sent]).paginate(page: params[:page])
   end
   
-  def manage
-    #TODO    
+  def update
+    @order = Order.find(params[:id])
+    if @order.update_attributes(user_params)
+      flash[:success] = "Ordine modificato"
+      redirect_to manage_path
+    else
+      flash[:danger] = "Errore interno"
+      redirect_to root_path
+    end
   end
   
   def destroy
@@ -72,7 +79,7 @@ class OrdersController < ApplicationController
   private
 
     def user_params
-      params.require(:order).permit(:product_id, :upgrade_ids => [])
+      params.require(:order).permit(:product_id, :status, :upgrade_ids => [])
     end
         
     # Before filters

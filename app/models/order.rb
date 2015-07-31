@@ -12,11 +12,22 @@ class Order < ActiveRecord::Base
     
   before_validation :compute_price, on: :create
 
+  def self.possible_status
+    {
+      wait_payment: "in attesa di pagamento",
+      wait_confirm: "in attesa di conferma",
+      denied: "ordine negato",
+      supplying: "in approvvigionamento",
+      packing: "in preparazione alla spedizione",
+      sent: "spedito"
+    }
+  end
+  
   private
 
     # Converts email to all lower-case.
     def compute_price
-      self.status = "in attesa di pagamento"
+      self.status = Order.possible_status[:wait_payment]
       price = product.final_price
       upgrades.each do |upgrade|
         price += upgrade.price
