@@ -1,4 +1,10 @@
-<% provide(:title, "Evasioni") %>
+<% provide(:title, "Evasione ordini") %>
+
+<% if @show_all.nil? %>
+  <%= button_to "Mostra ordini conclusi", manage_path, params: { show_all: true }, class: "btn btn-primary", style: "margin-bottom: 20px", method: :get %>
+<% else %>
+  <%= button_to "Nascondi ordini conclusi", manage_path, class: "btn btn-primary", style: "margin-bottom: 20px", method: :get %>
+<% end %>
 
 <%= will_paginate %>
 

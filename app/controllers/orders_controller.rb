@@ -56,7 +56,12 @@ class OrdersController < ApplicationController
   end
   
   def manage
-    @orders = Order.where.not(status: Order.possible_status[:sent]).paginate(page: params[:page])
+    if params[:show_all]
+      @orders = Order.all.paginate(page: params[:page])
+      @show_all = true
+    else
+      @orders = Order.where("status != ? AND status != ?", Order.possible_status[:sent], Order.possible_status[:denied]).paginate(page: params[:page])
+    end
   end
   
   def update
