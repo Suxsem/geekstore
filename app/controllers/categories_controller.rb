@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
   end
   
   def create
-    @category = Category.new(user_params)
+    @category = Category.new(category_params)
     if @category.save
       flash[:success] = "Categoria aggiunta"
       redirect_to categories_path
@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
   
   def update
     @category = Category.find(params[:id])
-    if @category.update_attributes(user_params)
+    if @category.update_attributes(category_params)
       flash[:success] = "Categoria modificata con successo"
       redirect_to categories_path
     else
@@ -42,18 +42,8 @@ class CategoriesController < ApplicationController
     
   private
 
-    def user_params
+    def category_params
       params.require(:category).permit(:name)
-    end
-    
-    # Before filters
-    
-    # Confirms a logged-in admin.
-    def logged_in_admin
-      unless admin?
-        flash[:danger] = "Non sei autorizzato a visitare questa pagina"
-        redirect_to root_path
-      end
     end
     
 end

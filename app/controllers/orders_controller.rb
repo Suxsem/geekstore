@@ -1,8 +1,14 @@
 class OrdersController < ApplicationController
     
-  before_action :logged_in_user, only: [:index, :destroy]
-  before_action :logged_in_user_add, only: [:create]
-  before_action :logged_in_user_cart, only: [:cart, :buy]
+  before_action :logged_in_user, only: [:index, :cart]
+  before_action only: [:create] do
+    logged_in_user
+    store_location product_path(Product.find(params[:order][:product_id]))
+  end
+  before_action only: [:destroy, :buy] do
+    logged_in_user
+    store_location cart_path
+  end
   before_action :logged_in_admin, only: [:update, :manage]
     
   def cart
@@ -45,7 +51,7 @@ class OrdersController < ApplicationController
   end
     
   def create
-    @order = current_user.orders.build(user_params)
+    @order = current_user.orders.build(order_params)
     if @order.save
       flash[:success] = "Prodotto aggiunto al carrello"
       redirect_to cart_path
@@ -66,7 +72,7 @@ class OrdersController < ApplicationController
   
   def update
     @order = Order.find(params[:id])
-    if @order.update_attributes(user_params)
+    if @order.update_attributes(order_params)
       flash[:success] = "Ordine modificato"
       redirect_to manage_path
     else
@@ -83,45 +89,8 @@ class OrdersController < ApplicationController
 
   private
 
-    def user_params
+    def order_params
       params.require(:order).permit(:product_id, :status, :upgrade_ids => [])
     end
-        
-    # Before filters
-
-    # Confirms a logged-in user before new order.
-    def logged_in_user_add
-      unless logged_in?
-        store_this_location product_path(Product.find(params[:order][:product_id]))
-        flash[:danger] = "Per favore effettua il login"
-        redirect_to login_url
-      end
-    end
-    
-    # Confirms a logged-in user before interacting with the cart.
-    def logged_in_user_cart
-      unless logged_in?
-        store_this_location cart_path
-        flash[:danger] = "Per favore effettua il login"
-        redirect_to login_url
-      end
-    end    
-    
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Per favore effettua il login"
-        redirect_to login_url
-      end
-    end
-    
-    # Confirms a logged-in admin.
-    def logged_in_admin
-      unless admin?
-        flash[:danger] = "Non sei autorizzato a visitare questa pagina"
-        redirect_to root_path
-      end
-    end    
     
 end

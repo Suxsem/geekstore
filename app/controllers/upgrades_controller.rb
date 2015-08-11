@@ -12,7 +12,7 @@ class UpgradesController < ApplicationController
   end
   
   def create
-    @upgrade = Upgrade.new(user_params)
+    @upgrade = Upgrade.new(upgrade_params)
     if @upgrade.save
       flash[:success] = "Potenziamento aggiunto"
       redirect_to upgrades_path(product_id: @upgrade.product.id)
@@ -27,7 +27,7 @@ class UpgradesController < ApplicationController
   
   def update
     @upgrade = Upgrade.find(params[:id])
-    if @upgrade.update_attributes(user_params)
+    if @upgrade.update_attributes(upgrade_params)
       flash[:success] = "Potenziamento modificato con successo"
       redirect_to upgrades_path(product_id: @upgrade.product.id)
     else
@@ -45,18 +45,8 @@ class UpgradesController < ApplicationController
   
   private
 
-    def user_params
+    def upgrade_params
       params.require(:upgrade).permit(:name, :product_id, :price)
-    end
-    
-    # Before filters
-    
-    # Confirms a logged-in admin.
-    def logged_in_admin
-      unless admin?
-        flash[:danger] = "Non sei autorizzato a visitare questa pagina"
-        redirect_to root_path
-      end
     end
   
 end

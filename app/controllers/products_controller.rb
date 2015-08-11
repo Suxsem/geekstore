@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
     
+  before_action :logged_in_admin, only: [:new, :create, :edit, :update, :destroy]
+    
   def index
     
     where = {}
@@ -41,7 +43,7 @@ class ProductsController < ApplicationController
   end
   
   def create
-    @product = Product.new(user_params)
+    @product = Product.new(product_params)
     if @product.save
       flash[:success] = "Prodotto aggiunto"
       redirect_to products_path
@@ -56,7 +58,7 @@ class ProductsController < ApplicationController
   
   def update
     @product = Product.find(params[:id])
-    if @product.update_attributes(user_params)
+    if @product.update_attributes(product_params)
       flash[:success] = "Prodotto modificato con successo"
       redirect_to products_path
     else
@@ -72,18 +74,8 @@ class ProductsController < ApplicationController
   
   private
 
-    def user_params
+    def product_params
       params.require(:product).permit(:name, :category_id, :desc, :price, :discount, :image, :image_cache, :store_ids => [])
-    end
-    
-    # Before filters
-    
-    # Confirms a logged-in admin.
-    def logged_in_admin
-      unless admin?
-        flash[:danger] = "Non sei autorizzato a visitare questa pagina"
-        redirect_to root_path
-      end
     end
   
 end

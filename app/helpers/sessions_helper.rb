@@ -39,13 +39,12 @@ module SessionsHelper
   end
 
   # Stores the URL trying to be accessed.
-  def store_location
-    session[:forwarding_url] = request.fullpath if request.get?
+  def store_location(location = nil)
+    if location.nil?
+      session[:forwarding_url] = request.fullpath if request.get?
+    else
+      session[:forwarding_url] = location
+    end
   end
-  
-  # Stores a specific URL.
-  def store_this_location(location)
-    session[:forwarding_url] = location
-  end  
   
 end
