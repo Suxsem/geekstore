@@ -2,13 +2,16 @@
 
 test_user:
   name: name1
-  password_digest: <%= User.digest('password') %>
+  password_digest: <%= BCrypt::Password.create('password', cost: ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost) %>
 
 test_user_2:
   name: name2
-  password_digest: <%= User.digest('password') %>
+  password_digest: <%= BCrypt::Password.create('password', cost: ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost) %>
 
 test_admin:
   name: name3
   admin: true
-  password_digest: <%= User.digest('password') %>
+  password_digest: <%= BCrypt::Password.create('password', cost: ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost) %>
