@@ -32,6 +32,7 @@ group :doc do
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'coffee-script-source',    '1.8.0'
 gem 'twitter-bootstrap-rails', '3.2.0'
 gem 'bootstrap_form',          '2.3.0'
 gem 'rails-i18n',              '4.0.4'
@@ -42,6 +43,7 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'carrierwave',             '0.10.0'
 gem 'cloudinary',              '1.1.0'
 gem 'mini_magick',             '4.2.7'
+gem 'tzinfo-data'
 
 group :development, :test do
   
