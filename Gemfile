@@ -61,6 +61,8 @@ group :development, :test do
   
   gem "rails-erd"
   gem 'railroady'
+  gem 'metric_fu'
+  gem 'simplecov'
 
 end
 
