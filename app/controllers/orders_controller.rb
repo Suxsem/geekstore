@@ -1,3 +1,6 @@
+require "business/orders_filter_user"
+require "business/orders_filter_admin"
+
 class OrdersController < ApplicationController
     
   before_action :logged_in_user, only: [:index, :cart]
@@ -34,11 +37,12 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html do
         if admin?
-          @user = User.find(params[:user_id])
+		      orders_filter = OrdersFilterAdmin.new @_request
         else
-          @user = current_user
+          orders_filter = OrdersFilterUser.new @_request
         end
-        @orders = @user.orders.paginate(page: params[:page])
+        @orders = orders_filter.filter
+        @user = User.find(params[:user_id])
       end
       format.json do
         if user = authenticate_with_http_basic { |name, password| User.find_by(name: name).authenticate(password) }
@@ -47,7 +51,7 @@ class OrdersController < ApplicationController
           request_http_basic_authentication
         end
       end
-    end    
+    end
   end
     
   def create

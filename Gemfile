@@ -32,7 +32,6 @@ group :doc do
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'coffee-script-source',    '1.8.0'
 gem 'twitter-bootstrap-rails', '3.2.0'
 gem 'bootstrap_form',          '2.3.0'
 gem 'rails-i18n',              '4.0.4'
