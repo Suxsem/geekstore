@@ -1,7 +1,4 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 test_category:
-  name: MyString1
-
-two:
-  name: MyString2
+  name: category1

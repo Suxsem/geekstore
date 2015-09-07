@@ -1,11 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  price: 9.99
-  product_id: 1
-
-two:
-  name: MyString
-  price: 9.99
-  product_id: 2
+test_upgrade:
+  name: upgrade1
+  price: 0
+  product: test_product

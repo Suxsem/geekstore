@@ -1,13 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user_id: 
-  product_id: 
-  status: MyString
-  price: 9.99
-
-two:
-  user_id: 
-  product_id: 
-  status: MyString
+test_order:
+  user: test_user
+  product: test_product
+  status: <%= Order.possible_status[:wait_payment] %>
   price: 9.99

@@ -1,7 +1,4 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 test_store:
-  place: MyString1
-
-two:
-  place: MyString2
+  place: place1

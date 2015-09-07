@@ -1,3 +1,5 @@
+require "business/visitor_price"
+
 class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :product
@@ -28,11 +30,12 @@ class Order < ActiveRecord::Base
     # Converts email to all lower-case.
     def compute_price
       self.status = Order.possible_status[:wait_payment]
-      price = product.final_price
+      visitor = VisitorPrice.new
+      visitor.visit_product product
       upgrades.each do |upgrade|
-        price += upgrade.price
+        visitor.visit_upgrade upgrade
       end
-      self.price = price
+      self.price = visitor.price
     end
   
 end
