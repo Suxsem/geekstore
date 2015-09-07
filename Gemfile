@@ -36,7 +36,6 @@ gem 'twitter-bootstrap-rails', '3.2.0'
 gem 'bootstrap_form',          '2.3.0'
 gem 'rails-i18n',              '4.0.4'
 gem 'bcrypt',                  '3.1.7'
-gem 'faker',                   '1.4.3'
 gem 'will_paginate',           '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'carrierwave',             '0.10.0'
@@ -62,7 +61,9 @@ group :development, :test do
   gem 'railroady'
   gem 'metric_fu'
   gem 'simplecov'
-
+  gem 'faker'
+  gem 'seed_dump'
+  
 end
 
 group :production do
