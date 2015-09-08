@@ -49,7 +49,14 @@ class OrdersController < ApplicationController
         @user = User.find(params[:user_id])
       end
       format.json do
-        if user = authenticate_with_http_basic { |name, password| User.find_by(name: name).authenticate(password) }
+        if user = authenticate_with_http_basic do |name, password|
+              user = User.find_by(name: name)
+              if user.nil?
+                false
+              else
+                user.authenticate(password)
+              end
+            end
           render json: user.orders
         else
           request_http_basic_authentication
