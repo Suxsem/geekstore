@@ -42,11 +42,11 @@ class OrdersController < ApplicationController
       format.html do
         if admin?
 		      orders_filter = OrdersFilterAdmin.new @_request
+		      @user = User.find(params[:user_id])
         else
           orders_filter = OrdersFilterUser.new @_request
         end
         @orders = orders_filter.filter
-        @user = User.find(params[:user_id])
       end
       format.json do
         if user = authenticate_with_http_basic do |name, password|
