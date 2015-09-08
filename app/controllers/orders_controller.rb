@@ -3,7 +3,7 @@ require "business/orders_filter_admin"
 
 class OrdersController < ApplicationController
     
-  before_action :logged_in_user, only: [:index, :cart]
+  before_action :logged_in_user, only: [:index, :cart], :unless => :format_json?
   before_action only: [:create] do
     logged_in_user
     store_location product_path(Product.find(params[:order][:product_id]))
@@ -15,12 +15,16 @@ class OrdersController < ApplicationController
   before_action :logged_in_admin, only: [:update, :manage]
     
   def cart
-      @orders = current_user.orders.where(status: Order.possible_status[:wait_payment])
-      @total = 0
-      @orders.each do |order|
-          @total += order.product.final_price
-          @total += order.upgrades.sum(:price)
+    respond_to do |format|
+      format.html do    
+        @orders = current_user.orders.where(status: Order.possible_status[:wait_payment])
+        @total = 0
+        @orders.each do |order|
+            @total += order.product.final_price
+            @total += order.upgrades.sum(:price)
+        end
       end
+    end
   end
   
   def buy
@@ -96,5 +100,9 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:product_id, :status, :upgrade_ids => [])
     end
-    
+
+    def format_json?
+      request.format.json?
+    end
+
 end
