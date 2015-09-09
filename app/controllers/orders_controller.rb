@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
       end
       format.json do
         if user = authenticate_with_http_basic do |name, password|
-              user = User.find_by(name: name)
+              user = User.find_by(name: name.downcase)
               if user.nil?
                 false
               else
