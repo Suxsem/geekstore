@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
                 user.authenticate(password)
               end
             end
-          render json: user.orders.to_json(include: :upgrades)
+          render json: user.orders.to_json(include: [:upgrades, :product])
         else
           request_http_basic_authentication
         end
