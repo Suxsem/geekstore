@@ -27,6 +27,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
   
+  # define the default image path
   def default_url
     ActionController::Base.helpers.asset_path([version_name, "no_image.png"].compact.join('_'))
   end  
@@ -43,10 +44,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   process :resize_to_fit => [50, 50]
   # end
   
+  # resize the uploaded image to 200x200 pixels
   process :resize_to_fit => [200, 200]
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
+  
+  # allow only this extensions
   def extension_white_list
     %w(jpg jpeg gif png)
   end

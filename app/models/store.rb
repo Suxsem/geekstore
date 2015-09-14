@@ -1,3 +1,6 @@
 class Store < ActiveRecord::Base
-    has_and_belongs_to_many :products
+    
+  # declare many-to-many relationship between stores and products
+  has_and_belongs_to_many :products
+  
 end
