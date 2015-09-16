@@ -42,6 +42,7 @@ gem 'carrierwave',             '0.10.0'
 gem 'cloudinary',              '1.1.0'
 gem 'mini_magick',             '4.2.7'
 gem 'tzinfo-data'
+gem 'seed_dump'
 
 group :development, :test do
   
@@ -62,7 +63,6 @@ group :development, :test do
   gem 'metric_fu'
   gem 'simplecov'
   gem 'faker'
-  gem 'seed_dump'
   
 end
 
