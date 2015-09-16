@@ -4,9 +4,6 @@ Category.create!([
   {name: "Notebook"},
   {name: "Tablet"}
 ])
-Product.create!([
-  {name: "Lenovo C50-30", desc: "Microfono incorporato, Full HD, Lettore di schede intetgrato, Built-in camera", image: "image/upload/v1442408108/rrzvvxsakdzrewrlftj9.jpg", price: "529.0", discount: 15, category_id: 3}
-])
 Store.create!([
   {place: "Campus Universitario Ecotekne, Monteroni"},
   {place: "Elettronica Sud, Lecce"},
@@ -24,12 +21,4 @@ User.create!([
   {name: "osvaldo fontana", admin: false, password_digest: "$2a$10$fsUrdAu6WP.gMQBNcY9YtOoRjy4C9cZeCviEnPtLMc4NONUP9BKYe"},
   {name: "user", admin: false, password_digest: "$2a$10$cfpRfjlWzJnUzAVND6WD7e4k8Vb1kKt7iFwsW7oTf8C6kOntnO/xK"},
   {name: "vinicio de angelis", admin: false, password_digest: "$2a$10$alUS0HOhUVvGNE324P0rJ.nRwsrtdN3kxoARiiTkKo31e.y/DeX7O"}
-])
-Product::HABTM_Stores.create!([
-  {product_id: 1, store_id: 6},
-  {product_id: 1, store_id: 8}
-])
-Store::HABTM_Products.create!([
-  {product_id: 1, store_id: 6},
-  {product_id: 1, store_id: 8}
 ])
